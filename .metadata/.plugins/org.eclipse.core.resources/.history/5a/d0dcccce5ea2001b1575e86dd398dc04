@@ -1,0 +1,481 @@
+package com.javalec.base;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.text.JTextComponent;
+
+import com.sun.jdi.connect.spi.Connection;
+
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JInternalFrame;
+import javax.swing.JTextArea;
+import javax.swing.JTable;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.swing.ListSelectionModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class userAdd {
+
+	private JFrame frame;
+	private JComboBox cbSelection;
+	private JTextField tfSearch;
+	private JButton btnQuery;
+	private JLabel lblNewLabel;
+	private JTextField tfSeqno;
+	private JLabel lblNewLabel_1;
+	private JTextField tfName;
+	private JLabel lblNewLabel_2;
+	private JTextField tfTelno;
+	private JLabel lblNewLabel_3;
+	private JTextField tfAddress;
+	private JLabel lblNewLabel_4;
+	private JTextField tfEmail;
+	private JLabel lblNewLabel_5;
+	private JTextField tfRelation;
+	private JScrollPane scrollPane;
+	private JTable Inner_table;
+	private JTextField tfCount;
+	
+	
+
+	
+	//database 환경정의
+			private final String url_mysql ="jdbc:mysql://127.0.0.1/useraddress?serverTimezone=UTC&characterEncoding=utf8&useSSL=FALSE";
+			private final String id_mysql = "root";
+			private final String pw_mysql = "qwer1234";
+			
+		//Table 환경 정의
+			private final DefaultTableModel Outer_table = new DefaultTableModel();
+
+	
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					userAdd window = new userAdd();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public userAdd() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				tableInit();
+				searchAction();
+			}
+		});
+		frame.setBounds(100, 100, 450, 566);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		frame.getContentPane().add(getCbSelection());
+		frame.getContentPane().add(getTfSearch());
+		frame.getContentPane().add(getBtnQuery());
+		frame.getContentPane().add(getLblNewLabel());
+		frame.getContentPane().add(getTfSeqno());
+		frame.getContentPane().add(getLblNewLabel_1());
+		frame.getContentPane().add(getTfName());
+		frame.getContentPane().add(getLblNewLabel_2());
+		frame.getContentPane().add(getTfTelno());
+		frame.getContentPane().add(getLblNewLabel_3());
+		frame.getContentPane().add(getTfAddress());
+		frame.getContentPane().add(getLblNewLabel_4());
+		frame.getContentPane().add(getTfEmail());
+		frame.getContentPane().add(getLblNewLabel_5());
+		frame.getContentPane().add(getTfRelation());
+		frame.getContentPane().add(getScrollPane());
+	}
+	private JComboBox getCbSelection() {
+		if (cbSelection == null) {
+			cbSelection = new JComboBox();
+			cbSelection.setModel(new DefaultComboBoxModel(new String[] {"\uC774\uB984", "\uC8FC\uC18C", "\uAD00\uACC4"}));
+			cbSelection.setBounds(12, 33, 58, 25);
+		}
+		return cbSelection;
+	}
+	private JTextField getTfSearch() {
+		if (tfSearch == null) {
+			tfSearch = new JTextField();
+			tfSearch.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+				}
+			});
+			tfSearch.setBounds(82, 35, 239, 21);
+			tfSearch.setColumns(10);
+		}
+		return tfSearch;
+	}
+	private JButton getBtnQuery() {
+		if (btnQuery == null) {
+			btnQuery = new JButton("\uAC80\uC0C9");
+			btnQuery.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					conditionQuery();
+				}
+			});
+			btnQuery.setBounds(333, 34, 91, 23);
+		}
+		return btnQuery;
+	}
+	private JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("seq No:");
+			lblNewLabel.setBounds(12, 217, 73, 15);
+		}
+		return lblNewLabel;
+	}
+	private JTextField getTfSeqno() {
+		if (tfSeqno == null) {
+			tfSeqno = new JTextField();
+			tfSeqno.setEditable(false);
+			tfSeqno.setBounds(64, 214, 96, 21);
+			tfSeqno.setColumns(10);
+		}
+		return tfSeqno;
+	}
+	private JLabel getLblNewLabel_1() {
+		if (lblNewLabel_1 == null) {
+			lblNewLabel_1 = new JLabel("\uC774\uB984:");
+			lblNewLabel_1.setBounds(12, 258, 50, 15);
+		}
+		return lblNewLabel_1;
+	}
+	private JTextField getTfName() {
+		if (tfName == null) {
+			tfName = new JTextField();
+			tfName.setEditable(false);
+			tfName.setBounds(64, 255, 96, 21);
+			tfName.setColumns(10);
+		}
+		return tfName;
+	}
+	private JLabel getLblNewLabel_2() {
+		if (lblNewLabel_2 == null) {
+			lblNewLabel_2 = new JLabel("\uC804\uD654\uBC88\uD638 :");
+			lblNewLabel_2.setBounds(12, 305, 73, 15);
+		}
+		return lblNewLabel_2;
+	}
+	private JTextField getTfTelno() {
+		if (tfTelno == null) {
+			tfTelno = new JTextField();
+			tfTelno.setEditable(false);
+			tfTelno.setBounds(76, 302, 237, 21);
+			tfTelno.setColumns(10);
+		}
+		return tfTelno;
+	}
+	private JLabel getLblNewLabel_3() {
+		if (lblNewLabel_3 == null) {
+			lblNewLabel_3 = new JLabel("\uC8FC\uC18C :");
+			lblNewLabel_3.setBounds(12, 354, 50, 15);
+		}
+		return lblNewLabel_3;
+	}
+	private JTextField getTfAddress() {
+		if (tfAddress == null) {
+			tfAddress = new JTextField();
+			tfAddress.setEditable(false);
+			tfAddress.setBounds(64, 351, 360, 21);
+			tfAddress.setColumns(10);
+		}
+		return tfAddress;
+	}
+	private JLabel getLblNewLabel_4() {
+		if (lblNewLabel_4 == null) {
+			lblNewLabel_4 = new JLabel("\uC774\uBA54\uC77C :");
+			lblNewLabel_4.setBounds(12, 391, 50, 15);
+		}
+		return lblNewLabel_4;
+	}
+	private JTextField getTfEmail() {
+		if (tfEmail == null) {
+			tfEmail = new JTextField();
+			tfEmail.setEditable(false);
+			tfEmail.setBounds(64, 388, 360, 21);
+			tfEmail.setColumns(10);
+		}
+		return tfEmail;
+	}
+	private JLabel getLblNewLabel_5() {
+		if (lblNewLabel_5 == null) {
+			lblNewLabel_5 = new JLabel("\uAD00\uACC4 :");
+			lblNewLabel_5.setBounds(12, 443, 50, 15);
+		}
+		return lblNewLabel_5;
+	}
+	private JTextField getTfRelation() {
+		if (tfRelation == null) {
+			tfRelation = new JTextField();
+			tfRelation.setEditable(false);
+			tfRelation.setBounds(64, 440, 360, 21);
+			tfRelation.setColumns(10);
+		}
+		return tfRelation;
+	}
+	private JScrollPane getScrollPane() {
+		if (scrollPane == null) {
+			scrollPane = new JScrollPane();
+			scrollPane.setBounds(22, 68, 390, 132);
+			scrollPane.setViewportView(getInner_table());
+		}
+		return scrollPane;
+	}
+	private JTable getInner_table() {
+		if (Inner_table == null) {
+			Inner_table = new JTable();
+			Inner_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			Inner_table.setModel(Outer_table); //**** 중요하다!!!!!
+			scrollPane.setViewportView(Inner_table);
+			Inner_table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					tableClick();
+				}
+			});
+		}
+		return Inner_table;
+	}
+	
+	private void tableInit() {
+		Outer_table.addColumn("순서");
+		Outer_table.addColumn("이름");
+		Outer_table.addColumn("전화번호");
+		Outer_table.addColumn("관계");
+		Outer_table.setColumnCount(4);//-->화면에 보여지는 종류가 몇개인지
+		
+		int i = Outer_table.getRowCount();
+		for(int j =0; j<i;j++) {
+			Outer_table.removeRow(0); //-->0번을 계속 지우니까 하나씩 지워지기 반복
+		}
+		
+		Inner_table.setAutoResizeMode(Inner_table.AUTO_RESIZE_OFF);
+		
+		int vColIndex = 0; //-->첫번째 행
+		TableColumn col = Inner_table.getColumnModel().getColumn(vColIndex);
+		int width = 50;
+		col.setPreferredWidth(width);
+		
+		vColIndex = 1; 
+		col = Inner_table.getColumnModel().getColumn(vColIndex);
+		width = 100;
+		col.setPreferredWidth(width);
+		
+		vColIndex = 2; 
+		col = Inner_table.getColumnModel().getColumn(vColIndex);
+		width = 150;
+		col.setPreferredWidth(width);
+		
+		vColIndex = 3; 
+		col = Inner_table.getColumnModel().getColumn(vColIndex);
+		width = 200;
+		col.setPreferredWidth(width);
+	}
+	
+	
+	private void searchAction() {
+		String query = "select seqno , name, telno, relation from userinfo ";
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+				java.sql.Connection conn_mysql = (java.sql.Connection) DriverManager.getConnection(url_mysql, id_mysql, pw_mysql);
+				Statement stmt_mysql = conn_mysql.createStatement();
+		
+				ResultSet rs = stmt_mysql.executeQuery(query);
+		
+		while(rs.next()) {
+			String [] qTxt = {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4)};
+			Outer_table.addRow(qTxt);
+		}
+			conn_mysql.close();
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+}
+	//table click
+		private void tableClick() {
+			int i = Inner_table.getSelectedRow();
+			String wkSeq = (String)Inner_table.getValueAt(i, 0);
+	
+			String query = "select seqno,name,telno,address,email,relation from userinfo where seqno =" + wkSeq;
+		
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				java.sql.Connection conn_mysql = (java.sql.Connection) DriverManager.getConnection(url_mysql, id_mysql, pw_mysql);
+				Statement stmt_mysql = conn_mysql.createStatement();
+			
+				ResultSet rs = stmt_mysql.executeQuery(query);
+			
+			while(rs.next()) {
+				tfSeqno.setText(rs.getString(1));
+				tfName.setText(rs.getString(2));
+				tfTelno.setText(rs.getString(3));
+				tfAddress.setText(rs.getString(4));
+				tfEmail.setText(rs.getString(5));
+				tfRelation.setText(rs.getString(6));
+				
+			}
+			conn_mysql.close();
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+
+
+	}
+	//조건검색
+	private void conditionQuery() {
+		int i = cbSelection.getSelectedIndex();
+		String conditionQueryColumn = "";
+		switch(i){
+			case 0 :
+				conditionQueryColumn = "name";
+				break;
+			case 1 :
+			conditionQueryColumn = "address";
+			break;
+			case 2 :
+				conditionQueryColumn = "relation";
+				break;
+		}
+		System.out.println(conditionQueryColumn);
+		
+		clearColumn();
+		System.out.println(000);
+		tableInit();
+		System.out.println(111);
+		conditionQueryAction(conditionQueryColumn);
+	}
+
+	private void conditionQueryAction(String columnName) {
+		System.out.println(columnName);
+		String query1 = "select seqno , name, telno, relation from userinfo where " +columnName;
+		String query2 = "like '%"+tfSearch.getText()+"%'";
+		System.out.println(3);
+		//System.out.println(query1+query2);
+		int datacount = 0;
+		System.out.println(2);
+		try {
+			System.out.println(1);
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			java.sql.Connection conn_mysql = (java.sql.Connection) DriverManager.getConnection(url_mysql, id_mysql, pw_mysql);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			
+			ResultSet rs = stmt_mysql.executeQuery(query1+query2);
+			
+			while(rs.next()) {
+				String [] qTxt = {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4)};
+				Outer_table.addRow(qTxt);
+				datacount++;
+			}
+			conn_mysql.close();
+			tfCount.setText(Integer.toString(datacount));
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
+	}
+
+	private void clearColumn() {
+		tfSeqno.setText("");
+		tfName.setText("");
+		tfAddress.setText("");
+		tfEmail.setText("");
+		tfRelation.setText("");
+		tfCount.setText("");
+	}
+	
+	private void deleteAction() {
+		PreparedStatement ps = null;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			java.sql.Connection conn_mysql = (java.sql.Connection) DriverManager.getConnection(url_mysql, id_mysql, pw_mysql);
+			Statement stmt_mysql =  conn_mysql.createStatement();
+			String query ="delete*from userinfo where seqno =";
+			
+			ResultSet rs = stmt_mysql.executeQuery(query);
+			while(rs.next()) {
+
+			}
+			conn_mysql.close();
+			JOptionPane.showMessageDialog(null, tfName.getText()+"님의 정보가 삭제 되었습니다.");
+	
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}//-----

@@ -1,0 +1,21 @@
+package com.javalec.restaurantenroll;
+
+import com.javalec.restaurantenroll.RfoodEnrollShareV;
+
+public class DbActionFoodEnroll {
+		//field
+		private final String url_mysql = RfoodEnrollShareV.url_mysql;
+		private final String id_mysql = RfoodEnrollShareV.id_mysql;
+		private final String pw_mysql = RfoodEnrollShareV.pw_mysql;
+
+
+
+			//construction
+			
+			//--------------------------------
+			//method
+			//--------------------------------
+			
+			
+
+}

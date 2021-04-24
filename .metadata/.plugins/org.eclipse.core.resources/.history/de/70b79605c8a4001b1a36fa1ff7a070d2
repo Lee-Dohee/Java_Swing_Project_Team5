@@ -1,0 +1,21 @@
+package com.javalec.r_loginfunction;
+
+import com.javalec.r_loginfunction.r_ShareV;
+
+public class R_DbAction {
+	
+	
+	//field
+		private final String url_mysql = r_ShareV.url_mysql;
+		private final String id_mysql = r_ShareV.id_mysql;
+		private final String pw_mysql = r_ShareV.pw_mysql;
+		
+		//construction
+		
+		
+		//--------------------------------
+		//method
+		//--------------------------------
+		
+
+}//-------

@@ -1,0 +1,50 @@
+package com.javalec.r_login;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+
+public class r_login {
+
+	private JFrame frame;
+	
+	
+	private final DefaultTableModel Outer_Table = new DefaultTableModel(); // ################
+	 private final String url_mysql = "jdbc:mysql://127.0.0.1/useraddress?serverTimezone=UTC&characterEncoding=utf8&useSSL=FALSE";
+	 private final String id_mysql = "root";
+  	 private final String pw_mysql = "qwer1234";
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					r_login window = new r_login();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public r_login() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+}

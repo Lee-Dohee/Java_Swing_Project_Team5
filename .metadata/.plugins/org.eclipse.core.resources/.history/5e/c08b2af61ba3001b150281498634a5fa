@@ -1,0 +1,47 @@
+package com.khankong.function;
+
+public class Bean {
+	//field
+
+	String name;
+	String telno;
+	String address;
+	String email;
+	String relation;
+	
+	//constructor
+	public Bean() {
+		
+		}
+	
+	public Bean(int seqno,String name, String telno, String address, String email, String relation) {
+		super();
+		this.name = name;
+		this.telno = telno;
+		this.address = address;
+		this.email = email;
+		this.relation = relation;
+		
+	}
+	
+	//method
+	public int getSeqno() {
+		return getSeqno();
+	}
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getTelno() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getRelation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

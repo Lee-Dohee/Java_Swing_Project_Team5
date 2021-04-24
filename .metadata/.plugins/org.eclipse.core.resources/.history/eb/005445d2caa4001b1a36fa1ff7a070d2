@@ -1,0 +1,135 @@
+package com.javalec.r_join;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Color;
+
+public class join {
+
+	private JFrame frame;
+	
+	private final DefaultTableModel Outer_Table = new DefaultTableModel(); // ################
+	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JButton btnNewButton;
+	// private final String url_mysql = "jdbc:mysql://127.0.0.1/useraddress?serverTimezone=UTC&characterEncoding=utf8&useSSL=FALSE";
+   //	private final String id_mysql = "root";
+   //	private final String pw_mysql = "qwer1234";
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					join window = new join();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public join() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 513);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		frame.getContentPane().add(getLblNewLabel());
+		frame.getContentPane().add(getLblNewLabel_1());
+		frame.getContentPane().add(getTextField());
+		frame.getContentPane().add(getTextField_1_1());
+		frame.getContentPane().add(getTextField_2());
+		frame.getContentPane().add(getTextField_3());
+		frame.getContentPane().add(getTextField_4());
+		frame.getContentPane().add(getBtnNewButton());
+	}
+	private JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("우리동네 맛집");
+			lblNewLabel.setFont(new Font("티머니 둥근바람 ExtraBold", Font.PLAIN, 24));
+			lblNewLabel.setBounds(12, 10, 188, 51);
+		}
+		return lblNewLabel;
+	}
+	private JLabel getLblNewLabel_1() {
+		if (lblNewLabel_1 == null) {
+			lblNewLabel_1 = new JLabel("회원가입");
+			lblNewLabel_1.setFont(new Font("티머니 둥근바람 ExtraBold", Font.PLAIN, 24));
+			lblNewLabel_1.setBounds(163, 40, 121, 46);
+		}
+		return lblNewLabel_1;
+	}
+	private JTextField getTextField() {
+		if (textField == null) {
+			textField = new JTextField();
+			textField.setBounds(62, 96, 293, 45);
+			textField.setColumns(10);
+		}
+		return textField;
+	}
+	private JTextField getTextField_1_1() {
+		if (textField_1 == null) {
+			textField_1 = new JTextField();
+			textField_1.setColumns(10);
+			textField_1.setBounds(62, 151, 293, 45);
+		}
+		return textField_1;
+	}
+	private JTextField getTextField_2() {
+		if (textField_2 == null) {
+			textField_2 = new JTextField();
+			textField_2.setColumns(10);
+			textField_2.setBounds(62, 205, 293, 45);
+		}
+		return textField_2;
+	}
+	private JTextField getTextField_3() {
+		if (textField_3 == null) {
+			textField_3 = new JTextField();
+			textField_3.setColumns(10);
+			textField_3.setBounds(62, 260, 293, 45);
+		}
+		return textField_3;
+	}
+	private JTextField getTextField_4() {
+		if (textField_4 == null) {
+			textField_4 = new JTextField();
+			textField_4.setColumns(10);
+			textField_4.setBounds(62, 315, 293, 45);
+		}
+		return textField_4;
+	}
+	private JButton getBtnNewButton() {
+		if (btnNewButton == null) {
+			btnNewButton = new JButton("회원가입");
+			btnNewButton.setBackground(new Color(153, 204, 255));
+			btnNewButton.setFont(new Font("티머니 둥근바람 ExtraBold", Font.PLAIN, 24));
+			btnNewButton.setBounds(55, 392, 300, 59);
+		}
+		return btnNewButton;
+	}
+}

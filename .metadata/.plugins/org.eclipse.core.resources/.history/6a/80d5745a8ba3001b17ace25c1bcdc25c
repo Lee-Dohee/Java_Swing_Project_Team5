@@ -1,0 +1,288 @@
+package com.khankong.function;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+public class DbAction {
+	
+	//field
+	private final String url_mysql = ShareVar.url_mysql;
+	private final String id_mysql = ShareVar.id_mysql;
+	private final String pw_mysql = ShareVar.pw_mysql;
+	
+	public DbAction(String name, String telno, String address, String email, String relation) {
+		super();
+		this.name = name;
+		this.telno = telno;
+		this.address = address;
+		this.email = email;
+		this.relation = relation;
+	} //우클릭-->source-->Generation.constructor using.. 쓰고 프라이머리 키 제외 선택
+	
+
+	int seqno;
+	String name;
+	String telno;
+	String address;
+	String email;
+	String relation;
+	
+	String scroll;
+	String bar;
+		
+	
+	
+	
+	public DbAction(String scroll, String bar) {
+		super();
+		this.scroll = scroll;
+		this.bar = bar; // scroll과 bar의 연결하는 생성자
+	}
+
+	public DbAction(int seqno, String name, String telno, String address, String email, String relation) {
+		super();
+		this.seqno = seqno;
+		this.name = name;
+		this.telno = telno;
+		this.address = address;
+		this.email = email;
+		this.relation = relation;
+	}
+
+	//construction
+	
+	//오버로드
+	
+	public DbAction(int seqno) {
+		super();
+		this.seqno = seqno;
+	}
+
+	public DbAction() {
+		
+	}
+	
+	//--------------------------------
+	//method
+	//--------------------------------
+	
+	//입력
+	//boolean으로 에러가 났는 지, 정상으로 하는 지 판단
+	public boolean insertAction(){ 
+        PreparedStatement ps = null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+            @SuppressWarnings("unused")
+			Statement stmt_mysql = conn_mysql.createStatement();
+
+            String A = "insert into userinfo (name, telno, address, email, relation)";
+            String B = " values (?,?,?,?,?)";
+
+            ps = conn_mysql.prepareStatement(A+B);
+            ps.setString(1, name.trim());
+            ps.setString(2, telno.trim());
+            ps.setString(3, address.trim());
+            ps.setString(4, email.trim());
+            ps.setString(5, relation.trim()); //매개변수 쓰거나 생성자에 쓰거나
+            ps.executeUpdate();
+
+            conn_mysql.close();
+            return true;           
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;            
+        }
+		
+	}
+	
+	//전체 검색
+	public ArrayList<Bean> selectList(){
+		
+		ArrayList<Bean> beanList = new ArrayList<Bean>();
+		
+		  String WhereDefault = "select seqno, name, telno, relation from userinfo ";
+       try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+           Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+            Statement stmt_mysql = conn_mysql.createStatement();
+
+           ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+
+           while(rs.next()){
+        	   int wkSeq = rs.getInt(1);
+        	   String wkName = rs.getString(2);
+        	   String wkTelno = rs.getString(3);
+        	   String wkRelation = rs.getString(4);
+        	   
+        	   Bean bean = new Bean(wkSeq, wkName, wkTelno, wkRelation);
+        	   beanList.add(bean);
+        	   
+            }
+            conn_mysql.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+	return beanList;
+		
+	} //=>들어오는 정보가 많을 때-->arrayList
+	
+	//table 클릭했을 때
+	public Bean TableClick() {//-정보가 딱 정해져 있을 때
+		Bean bean = null;
+		
+		 String WhereDefault = "select seqno, name, telno, address, email, relation from userinfo "; 
+		 String WhereDefault2 = "where seqno = " ;
+		 	try{
+		 		Class.forName("com.mysql.cj.jdbc.Driver");
+		 		Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+		 		Statement stmt_mysql = conn_mysql.createStatement();
+
+		 		ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2 + seqno);
+
+		 	while(rs.next()){
+		 		int wkSeq = rs.getInt(1);
+		 		String wkName = rs.getString(2);
+		 		String wkTelno = rs.getString(3);
+		 		String wkAddress = rs.getString(4);
+		 		String wkEmail = rs.getString(5);
+		 		String wkRelation = rs.getString(6);
+           	
+		 		bean = new Bean(wkSeq, wkName, wkTelno, wkAddress, wkEmail, wkRelation);
+           }
+           conn_mysql.close();
+       }
+       catch (Exception e){
+           e.printStackTrace();
+       }
+       return bean;
+	}
+	//수정
+	public boolean UpdateAction() {
+	 PreparedStatement ps = null;
+   try{
+       Class.forName("com.mysql.cj.jdbc.Driver");
+       Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+       @SuppressWarnings("unused")
+		Statement stmt_mysql = conn_mysql.createStatement();
+
+       		String A = "update userinfo set name = ?, telno = ?, address = ?, email = ?, relation = ? ";
+            String B = " where seqno = ? ";
+
+       ps = conn_mysql.prepareStatement(A+B);
+       ps.setString(1, name.trim());
+       ps.setString(2, telno.trim());
+       ps.setString(3, address.trim());
+       ps.setString(4, email.trim());
+       ps.setString(5, relation.trim()); //매개변수 쓰거나 생성자에 쓰거나
+       ps.setInt(6, seqno);
+       ps.executeUpdate();
+
+       conn_mysql.close();
+       return true; 
+   } catch (Exception e){
+       e.printStackTrace();
+       return false; 
+   		}
+	}
+   
+	
+	//삭제
+	public boolean DeleteAction() {	
+
+		Bean bean = null;
+		
+		 PreparedStatement ps = null;
+       try{
+          Class.forName("com.mysql.cj.jdbc.Driver");
+           Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+           @SuppressWarnings("unused")
+			Statement stmt_mysql = conn_mysql.createStatement();
+
+           String A = "delete from userinfo where seqno = ? ";
+
+           ps = conn_mysql.prepareStatement(A);
+           
+           ps.setInt(1, seqno);
+           ps.executeUpdate();
+        
+    		conn_mysql.close();
+           		
+           	 return true;  
+       		} catch (Exception e){
+    	   		e.printStackTrace();
+    	   		
+    	   	 return false;  
+       		}
+        
+		
+	}
+	
+	//조건 검색
+	
+	public ArrayList<Bean> conditionList() {
+		ArrayList<Bean> beanList1 = new ArrayList<Bean>();
+		
+		  String WhereDefault = "select seqno, name, telno, relation from userinfo where " + scroll;
+	        String WhereDefault2 = " like '%" + bar + "%'";
+	      
+
+		        try{
+		            Class.forName("com.mysql.cj.jdbc.Driver");
+		            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+		            Statement stmt_mysql = conn_mysql.createStatement();
+	
+		            ResultSet rs = stmt_mysql.executeQuery(WhereDefault + WhereDefault2);
+	
+		            while(rs.next()){
+		            	int seqno1 = rs.getInt(1);
+		            	String name1 = rs.getString(2);
+		            	String telno1 = rs.getString(3);
+		            	String relation1 = rs.getString(4);
+		            	
+		            	 Bean bean = new Bean(seqno1 ,name1, telno1, relation1);
+		            	 beanList1.add(bean);
+		             
+		            }
+		            conn_mysql.close();
+		        }
+		        catch (Exception e){
+		            e.printStackTrace();
+		        }
+	     return beanList1;
+	}
+	
+	
+	 
+
+     
+
+   
+
+  
+  	   
+    
+    
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}//-----------------------------------------------

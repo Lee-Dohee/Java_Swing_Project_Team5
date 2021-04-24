@@ -1,0 +1,104 @@
+package com.javalec.base;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.awt.event.ActionEvent;
+import javax.swing.JToolBar;
+import javax.swing.JDesktopPane;
+
+public class AddressInsert {
+
+	private JFrame frame;
+	private JTextField tfName;
+	
+	//database 환경정의
+	private final String url_mysql ="jdbc:mysql://192.168.2.1/useraddress?serverTimezone=UTC&%characterEncoding=utf8&useSSL=FALSE";
+	private final String id_mysql = "root";
+	private final String pw_mysql = "qwer1234";
+	
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AddressInsert window = new AddressInsert();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public AddressInsert() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("\uC131\uBA85");
+		lblNewLabel.setBounds(35, 36, 50, 15);
+		frame.getContentPane().add(lblNewLabel);
+		
+		tfName = new JTextField();
+		tfName.setBounds(92, 33, 96, 21);
+		frame.getContentPane().add(tfName);
+		tfName.setColumns(10);
+		
+		JButton btnOk = new JButton("\uC785\uB825");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertAction();
+			}
+		});
+		btnOk.setBounds(304, 218, 91, 23);
+		frame.getContentPane().add(btnOk);
+	}
+	
+	private void insertAction() { //사용자 정보 입력
+		PreparedStatement ps = null;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(url_mysql, id_mysql, pw_mysql);
+			Statement stmt_mysql = conn_mysql.createStatement();
+			
+			String query = "insert into userinfo(name) values (?)";
+			
+			ps = conn_mysql.prepareStatement(query);
+			ps.setString(1, tfName.getText().trim());
+			ps.executeUpdate();
+			
+			conn_mysql.close();
+			
+			JOptionPane.showMessageDialog(null, tfName.getText()+"님의 정보가 입력되었습니다.");
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}//------

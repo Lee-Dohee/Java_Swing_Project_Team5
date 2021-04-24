@@ -1,0 +1,88 @@
+package com.khankong.function;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+
+import javax.swing.JOptionPane;
+
+public class DbAction {
+	
+	//field
+	private final String url_mysql = ShareVar.url_mysql;
+	private final String id_mysql = ShareVar.id_mysql;
+	private final String pw_mysql = ShareVar.pw_mysql;
+	
+	public DbAction(String name, String telno, String address, String email, String relation) {
+		super();
+		this.name = name;
+		this.telno = telno;
+		this.address = address;
+		this.email = email;
+		this.relation = relation;
+	} //우클릭-->source-->Generation.constructor using.. 쓰고 프라이머리 키 제외 선택
+
+	int seqno;
+	String name;
+	String telno;
+	String address;
+	String email;
+	String relation;
+		
+	//construction
+	
+	public DbAction() {
+		
+	}
+	
+	//--------------------------------
+	//method
+	//--------------------------------
+	
+	//입력
+	//boolean으로 에러가 났는 지, 정상으로 하는 지 판단
+	public boolean insertAction(){ 
+        PreparedStatement ps = null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+            @SuppressWarnings("unused")
+			Statement stmt_mysql = conn_mysql.createStatement();
+
+            String A = "insert into userinfo (name, telno, address, email, relation)";
+            String B = " values (?,?,?,?,?)";
+
+            ps = conn_mysql.prepareStatement(A+B);
+            ps.setString(1, name.trim());
+            ps.setString(2, telno.trim());
+            ps.setString(3, address.trim());
+            ps.setString(4, email.trim());
+            ps.setString(5, relation.trim()); //매개변수 쓰거나 생성자에 쓰거나
+            ps.executeUpdate();
+
+            conn_mysql.close();
+            return true;           
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;              
+        }
+		
+	}
+	
+	//전체 검색
+	public ArrayList<Bean> selectList(){
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}//-----------------------------------------------

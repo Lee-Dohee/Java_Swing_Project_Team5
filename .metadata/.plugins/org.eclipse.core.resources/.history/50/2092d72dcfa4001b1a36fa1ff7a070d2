@@ -1,0 +1,30 @@
+package com.javalec.r_joinfunction;
+
+import com.javalec.r_joinfunction.r_JoinShareV;
+
+public class JdbAction {
+	
+	//field
+		private final String url_mysql = r_JoinShareV.url_mysql;
+		private final String id_mysql = r_JoinShareV.id_mysql;
+		private final String pw_mysql = r_JoinShareV.pw_mysql;
+		
+		String id;
+		String pw;
+		String name;
+		String neighborhood;
+		String people;
+		String cartegories;
+		String location;
+		//construction
+		
+		//--------------------------------
+		//method
+		//--------------------------------
+		
+		public void IdEnroll() {
+	
+		}
+		
+
+}//---
