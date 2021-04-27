@@ -1,7 +1,4 @@
-package com.javalec.Restaurantenroll;
-
-
-
+package com.javalec.RfoodEnroll;
 
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
@@ -102,12 +99,6 @@ public class RfoodEnroll {
 	private JComboBox getCbNeighborhood() {
 		if (cbNeighborhood == null) {
 			cbNeighborhood = new JComboBox();
-			cbNeighborhood.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					CbNeighborhood();
-				}
-			});
 			cbNeighborhood.setFont(new Font("티머니 둥근바람 Regular", Font.PLAIN, 12));
 			cbNeighborhood.setModel(new DefaultComboBoxModel(new String[] {"한남동", "이태원", "역삼동", "연남동", "잠실"}));
 			cbNeighborhood.setBackground(Color.WHITE);
@@ -115,49 +106,10 @@ public class RfoodEnroll {
 		}
 		return cbNeighborhood;
 	}
-	//동네 콤보박스 설정
-	private void CbNeighborhood() {
-	int i = cbNeighborhood.getSelectedIndex();
-	String ConditionQueryColumn = "";
-	switch (i) {
-	case 0:
-		ConditionQueryColumn = "한남동";
-		break;
-	case 1:
-		ConditionQueryColumn = "이태원";
-		break;
-	case 2:
-		ConditionQueryColumn = "역삼동";
-		break;
-	case 3:
-		ConditionQueryColumn = "연남동";
-		break;
-	case 4:
-		ConditionQueryColumn = "잠실";
-		break;
-	default:
-		break;
-		}
-	ClearColumn();
-	CbNeighborhoodAction(ConditionQueryColumn);
-	}
-	
-
-
-	private void CbNeighborhoodAction(String conditionQueryColumn) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	private JComboBox getCbPeople() {
 		if (cbPeople == null) {
 			cbPeople = new JComboBox();
-			cbPeople.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					CbPeople();
-				}
-			});
 			cbPeople.setFont(new Font("티머니 둥근바람 Regular", Font.PLAIN, 12));
 			cbPeople.setModel(new DefaultComboBoxModel(new String[] {"1인", "2인", "3인", "4인", "5인이상"}));
 			cbPeople.setBackground(Color.WHITE);
@@ -165,87 +117,16 @@ public class RfoodEnroll {
 		}
 		return cbPeople;
 	}
-	//인분 콤보박스 설정
-	public void CbPeople() {
-		int j = cbPeople.getSelectedIndex();
-		String ConditionQueryColumn1 = "";
-		switch (j) {
-		case 0:
-			ConditionQueryColumn1 = "1인";
-			break;
-		case 1:
-			ConditionQueryColumn1 = "2인";
-			break;
-		case 2:
-			ConditionQueryColumn1 = "3인";
-			break;
-		case 3:
-			ConditionQueryColumn1 = "4인";
-			break;
-		case 4:
-			ConditionQueryColumn1 = "5인이상";
-			break;
-		default:
-			break;
-		}
-		ClearColumn();
-		CbPeopleAction( ConditionQueryColumn1);
-	}
-	private void CbPeopleAction(String conditionQueryColumn1) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	private JComboBox getCbCategories() {
 		if (cbCategories == null) {
 			cbCategories = new JComboBox();
-			cbCategories.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					CbCategories();
-				}
-			});
 			cbCategories.setModel(new DefaultComboBoxModel(new String[] {"한식", "중식", "일식", "양식", "디저트", "분식"}));
 			cbCategories.setFont(new Font("티머니 둥근바람 Regular", Font.PLAIN, 12));
 			cbCategories.setBackground(Color.WHITE);
 			cbCategories.setBounds(133, 180, 261, 25);
 		}
 		return cbCategories;
-	}
-	//카테고리 콤보박스 설정
-	private void CbCategories() {
-		int k = cbCategories.getSelectedIndex();
-		String ConditionQueryColumn2 = "";
-		switch (k) {
-		case 0:
-			ConditionQueryColumn2 = "한식";
-			break;
-		case 1:
-			ConditionQueryColumn2 = "일식";
-			break;
-		case 2:
-			ConditionQueryColumn2 = "중식";
-			break;
-		case 3:
-			ConditionQueryColumn2 = "양식";
-			break;
-		case 4:
-			ConditionQueryColumn2 = "분식";
-			break;
-		case 5:
-			ConditionQueryColumn2 = "디저트";
-			break;	
-		default:
-			break;
-		}
-		
-		ClearColumn();
-		CbCategoriesAction(ConditionQueryColumn2);
-		
-	}
-	private void CbCategoriesAction(String conditionQueryColumn2) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private JTextField getTfName() {
@@ -296,45 +177,34 @@ public class RfoodEnroll {
 	}
 	
 	private void EnrollQuery(){
-		int enrollnumber = tfEnrollnumber.getColumns();
+		String enrollnumber = tfEnrollnumber.getText().trim();
 		String name = tfName.getText().trim();
-		String telno = tfTelno.getText().trim();
 		String address = tfAddress.getText().trim();
-		String neighborhood = cbNeighborhood.getActionCommand().trim();
-		String people = cbPeople.getActionCommand().trim();
-		String categories = cbCategories.getActionCommand().trim();
+		String telno = tfTelno.getText().trim();
+//		String neighborhood = cbNeighborhood.getActionCommand().trim();
+		String neighborhood = cbNeighborhood.getSelectedItem().toString();
+		String people = cbPeople.getSelectedItem().toString();
+		String categories = cbCategories.getSelectedItem().toString();
+		//String neighborhood = cbNeighborhood.getSelectedObjects().toString();
+		//String people = cbPeople.getSelectedObjects().toString();
+		//String categories = cbCategories.getSelectedObjects().toString();
 		
-		DbActionRfoodEnroll dbActionRfoodEnroll = new DbActionRfoodEnroll(enrollnumber,name,telno,address,neighborhood,people,categories);
+		DbActionRfoodEnroll dbActionRfoodEnroll = new DbActionRfoodEnroll(enrollnumber,name,address,telno,neighborhood,people,categories);
 			boolean msg = dbActionRfoodEnroll.EnrollQuery();
 				if(msg == true) {
-					JOptionPane.showInputDialog(this, tfName.getText()+" 님의 정보가 입력되었습니다!"); 
+				//	JOptionPane.showInputDialog(this, tfName.getText()+" 님의 정보가 입력되었습니다!"); 
 				}else {
-					JOptionPane.showInputDialog(this, "DB 자료 입력 중 에러가 발생했습니다! \n 시스템관리자에게 문의하세요!");   
+				// JOptionPane.showInputDialog(this, "DB 자료 입력 중 에러가 발생했습니다! \n 시스템관리자에게 문의하세요!");   
 					}
 		
 	}
 
-
-	private void ScreenPartition() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void TableInit() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-
 	private void ClearColumn() {
 		// TODO Auto-generated method stub
+		tfEnrollnumber.setText("");
 		tfName.setText("");
 		tfAddress.setText("");
 		tfTelno.setText("");
-		tfEnrollnumber.setText("");
 	}
 
 

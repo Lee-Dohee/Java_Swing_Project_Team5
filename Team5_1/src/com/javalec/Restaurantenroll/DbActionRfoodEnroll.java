@@ -13,24 +13,24 @@ public class DbActionRfoodEnroll {
 		private final String id_mysql = RfoodEnrollShareV.id_mysql;
 		private final String pw_mysql = RfoodEnrollShareV.pw_mysql;
 
+		String enrollnumber;
 		String name;
 		String address;
 		String telno;
-		int enrollnumber;
 		String neighborhood;
 		String people;
 		String categories;
 
-		
-		
-		
 
-			public DbActionRfoodEnroll(String name, String address, String telno,int enrollnumber, String neighborhood,String people,String categories) {
+		
+	
+
+			public DbActionRfoodEnroll(String enrollnumber,String name, String address, String telno, String neighborhood,String people,String categories) {
 			super();
+			this.enrollnumber = enrollnumber;
 			this.name = name;
 			this.address = address;
 			this.telno = telno;
-			this.enrollnumber = enrollnumber;
 			this.neighborhood = neighborhood;
 			this.people = people;
 			this.categories = categories;
@@ -38,26 +38,15 @@ public class DbActionRfoodEnroll {
 
 
 
-
-
 			//construction
 
-			public DbActionRfoodEnroll(int enrollnumber) {
-				super();
-				this.enrollnumber = enrollnumber;
-			}
-			public DbActionRfoodEnroll(int enrollnumber2, String name2, String telno, String address2, String neighborhood2, String people2, String categories2) {
-				
-			}
-			
-			//--------------------------------
-			//method
-			//--------------------------------
-		
+		public DbActionRfoodEnroll(int enrollnumber2, String name2, String telno, String address2, String neighborhood2, String people2, String categories2) {
 	
-
-
-
+		}
+			
+		//--------------------------------
+		//method
+		//--------------------------------
 
 		//등록 확인
 		public boolean EnrollQuery() {
@@ -73,7 +62,7 @@ public class DbActionRfoodEnroll {
 
 		            ps = conn_mysql.prepareStatement(A+B);
 		            
-		            ps.setLong(1,enrollnumber);
+		            ps.setString(1,enrollnumber);
 					ps.setString(2, name);
 					ps.setString(3, address);
 					ps.setString(4, telno);
@@ -84,11 +73,11 @@ public class DbActionRfoodEnroll {
 		            ps.executeUpdate();
 
 		            conn_mysql.close();
-		            JOptionPane.showMessageDialog(null, B);
+		            JOptionPane.showMessageDialog(null, "식당등록에 완료되었습니다.");
 		            return true;           
 		        } catch (Exception e){
 		            e.printStackTrace();
-		            JOptionPane.showMessageDialog(null, e);
+		            JOptionPane.showMessageDialog(null, "식당등록에 실패하셨습니다.");
 		            return false;            
 		        }
 				
