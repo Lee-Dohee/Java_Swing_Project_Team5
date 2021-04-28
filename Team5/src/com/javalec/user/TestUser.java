@@ -19,6 +19,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class TestUser {
 
@@ -33,6 +36,22 @@ public class TestUser {
 	private JCheckBox chkMilk;
 	private JCheckBox chkBuckwheat;
 	private JCheckBox chkPeanut;
+	private JCheckBox chkMackerel;
+	private JCheckBox chkPork;
+	private JCheckBox chkSo2;
+	private JCheckBox chkBeef;
+	private JCheckBox chkSoybean;
+	private JCheckBox chkWheat;
+	private JCheckBox chkShrimp;
+	private JCheckBox chkTomato;
+	private JCheckBox chkChicken;
+	private JCheckBox chkShellfish;
+	private JCheckBox chkCrab;
+	private JCheckBox chkPeach;
+	private JCheckBox chkWalnut;
+	private JCheckBox chkSquid;
+	private JTextField tfPwChk;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -64,7 +83,7 @@ public class TestUser {
 		frame = new JFrame();
 		frame.setTitle("회원가입 테스트");
 		frame.setAlwaysOnTop(true);
-		frame.setBounds(100, 100, 450, 412);
+		frame.setBounds(100, 100, 367, 583);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getTfId());
@@ -77,11 +96,27 @@ public class TestUser {
 		frame.getContentPane().add(getChkMilk());
 		frame.getContentPane().add(getChkBuckwheat());
 		frame.getContentPane().add(getChkPeanut());
+		frame.getContentPane().add(getChkMackerel());
+		frame.getContentPane().add(getChkPork());
+		frame.getContentPane().add(getChkSo2());
+		frame.getContentPane().add(getChkBeef());
+		frame.getContentPane().add(getChkSoybean());
+		frame.getContentPane().add(getChkWheat());
+		frame.getContentPane().add(getChkShrimp());
+		frame.getContentPane().add(getChkTomato());
+		frame.getContentPane().add(getChkChicken());
+		frame.getContentPane().add(getChkShellfish());
+		frame.getContentPane().add(getChkCrab());
+		frame.getContentPane().add(getChkPeach());
+		frame.getContentPane().add(getChkWalnut());
+		frame.getContentPane().add(getChkSquid());
+		frame.getContentPane().add(getTfPwChk());
+		frame.getContentPane().add(getLblNewLabel());
 	}
 	private JTextField getTfId() {
 		if (tfId == null) {
 			tfId = new JTextField();
-			tfId.setBounds(25, 42, 130, 26);
+			tfId.setBounds(24, 101, 315, 26);
 			tfId.setColumns(10);
 		}
 		return tfId;
@@ -89,7 +124,7 @@ public class TestUser {
 	private JTextField getTfPw() {
 		if (tfPw == null) {
 			tfPw = new JTextField();
-			tfPw.setBounds(25, 80, 130, 26);
+			tfPw.setBounds(24, 139, 315, 26);
 			tfPw.setColumns(10);
 		}
 		return tfPw;
@@ -97,7 +132,7 @@ public class TestUser {
 	private JTextField getTfName() {
 		if (tfName == null) {
 			tfName = new JTextField();
-			tfName.setBounds(25, 118, 130, 26);
+			tfName.setBounds(24, 63, 315, 26);
 			tfName.setColumns(10);
 		}
 		return tfName;
@@ -105,7 +140,7 @@ public class TestUser {
 	private JTextField getTfTelno() {
 		if (tfTelno == null) {
 			tfTelno = new JTextField();
-			tfTelno.setBounds(197, 42, 130, 26);
+			tfTelno.setBounds(24, 253, 315, 26);
 			tfTelno.setColumns(10);
 		}
 		return tfTelno;
@@ -113,7 +148,7 @@ public class TestUser {
 	private JTextField getTfEmail() {
 		if (tfEmail == null) {
 			tfEmail = new JTextField();
-			tfEmail.setBounds(197, 80, 130, 26);
+			tfEmail.setBounds(24, 215, 315, 26);
 			tfEmail.setColumns(10);
 		}
 		return tfEmail;
@@ -126,37 +161,152 @@ public class TestUser {
 					join();
 				}
 			});
-			btnOK.setBounds(210, 118, 117, 29);
+			btnOK.setBounds(222, 507, 117, 29);
 		}
 		return btnOK;
 	}
 	private JCheckBox getChkEggs() {
 		if (chkEggs == null) {
 			chkEggs = new JCheckBox("eggs");
-			chkEggs.setBounds(27, 175, 128, 23);
+			chkEggs.setBounds(24, 305, 67, 23);
 		}
 		return chkEggs;
 	}
 	private JCheckBox getChkMilk() {
 		if (chkMilk == null) {
 			chkMilk = new JCheckBox("milk");
-			chkMilk.setBounds(27, 209, 128, 23);
+			chkMilk.setBounds(134, 305, 67, 23);
 		}
 		return chkMilk;
 	}
 	private JCheckBox getChkBuckwheat() {
 		if (chkBuckwheat == null) {
 			chkBuckwheat = new JCheckBox("buckwheat");
-			chkBuckwheat.setBounds(25, 244, 128, 23);
+			chkBuckwheat.setBounds(232, 305, 107, 23);
 		}
 		return chkBuckwheat;
 	}
 	private JCheckBox getChkPeanut() {
 		if (chkPeanut == null) {
 			chkPeanut = new JCheckBox("peanut");
-			chkPeanut.setBounds(25, 279, 128, 23);
+			chkPeanut.setBounds(24, 338, 80, 23);
 		}
 		return chkPeanut;
+	}
+	private JCheckBox getChkMackerel() {
+		if (chkMackerel == null) {
+			chkMackerel = new JCheckBox("mackerel");
+			chkMackerel.setBounds(24, 373, 98, 23);
+		}
+		return chkMackerel;
+	}
+	private JCheckBox getChkPork() {
+		if (chkPork == null) {
+			chkPork = new JCheckBox("pork");
+			chkPork.setBounds(24, 408, 80, 23);
+		}
+		return chkPork;
+	}
+	private JCheckBox getChkSo2() {
+		if (chkSo2 == null) {
+			chkSo2 = new JCheckBox("so2");
+			chkSo2.setBounds(24, 443, 80, 23);
+		}
+		return chkSo2;
+	}
+	private JCheckBox getChkBeef() {
+		if (chkBeef == null) {
+			chkBeef = new JCheckBox("beef");
+			chkBeef.setBounds(24, 478, 80, 23);
+		}
+		return chkBeef;
+	}
+	private JCheckBox getChkSoybean() {
+		if (chkSoybean == null) {
+			chkSoybean = new JCheckBox("soybean");
+			chkSoybean.setBounds(134, 338, 86, 23);
+		}
+		return chkSoybean;
+	}
+	private JCheckBox getChkWheat() {
+		if (chkWheat == null) {
+			chkWheat = new JCheckBox("wheat");
+			chkWheat.setBounds(232, 338, 107, 23);
+		}
+		return chkWheat;
+	}
+	private JCheckBox getChkShrimp() {
+		if (chkShrimp == null) {
+			chkShrimp = new JCheckBox("shrimp");
+			chkShrimp.setBounds(232, 373, 107, 23);
+		}
+		return chkShrimp;
+	}
+	private JCheckBox getChkTomato() {
+		if (chkTomato == null) {
+			chkTomato = new JCheckBox("tomato");
+			chkTomato.setBounds(232, 408, 107, 23);
+		}
+		return chkTomato;
+	}
+	private JCheckBox getChkChicken() {
+		if (chkChicken == null) {
+			chkChicken = new JCheckBox("chicken");
+			chkChicken.setBounds(232, 443, 107, 23);
+		}
+		return chkChicken;
+	}
+	private JCheckBox getChkShellfish() {
+		if (chkShellfish == null) {
+			chkShellfish = new JCheckBox("shellfish");
+			chkShellfish.setBounds(232, 478, 107, 23);
+		}
+		return chkShellfish;
+	}
+	private JCheckBox getChkCrab() {
+		if (chkCrab == null) {
+			chkCrab = new JCheckBox("crab");
+			chkCrab.setBounds(134, 373, 67, 23);
+		}
+		return chkCrab;
+	}
+	private JCheckBox getChkPeach() {
+		if (chkPeach == null) {
+			chkPeach = new JCheckBox("peach");
+			chkPeach.setBounds(134, 408, 86, 23);
+		}
+		return chkPeach;
+	}
+	private JCheckBox getChkWalnut() {
+		if (chkWalnut == null) {
+			chkWalnut = new JCheckBox("walnut");
+			chkWalnut.setBounds(134, 443, 78, 23);
+		}
+		return chkWalnut;
+	}
+	private JCheckBox getChkSquid() {
+		if (chkSquid == null) {
+			chkSquid = new JCheckBox("squid");
+			chkSquid.setBounds(134, 478, 67, 23);
+		}
+		return chkSquid;
+	}
+	private JTextField getTfPwChk() {
+		if (tfPwChk == null) {
+			tfPwChk = new JTextField();
+			tfPwChk.setColumns(10);
+			tfPwChk.setBounds(24, 177, 315, 26);
+		}
+		return tfPwChk;
+	}
+	private JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("회원가입");
+			lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel.setBounds(132, 19, 98, 26);
+		}
+		return lblNewLabel;
 	}
 	
 	// 회원가입
@@ -168,7 +318,7 @@ public class TestUser {
 		String telno = tfTelno.getText().trim();
 		String email = tfEmail.getText().trim();
 		
-		DbActionUser dbActionUser = new DbActionUser(id, pw, name, telno, email, chkEggs, chkMilk, chkBuckwheat, chkPeanut);
+		DbActionUser dbActionUser = new DbActionUser(id, pw, name, telno, email, chkEggs, chkMilk, chkBuckwheat, chkPeanut, chkSoybean, chkWheat, chkMackerel, chkCrab, chkShrimp, chkPork, chkPeach, chkTomato, chkSo2, chkWalnut, chkChicken, chkBeef, chkSquid, chkShellfish);
 		boolean msg = dbActionUser.joinUser();
 		
 		if(msg == true) {
@@ -182,4 +332,5 @@ public class TestUser {
 		}
 
 	}
+	
 }

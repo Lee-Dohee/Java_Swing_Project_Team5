@@ -28,6 +28,20 @@ public class DbActionMenu {
 	JCheckBox chkMilk;
 	JCheckBox chkBuckwheat;
 	JCheckBox chkPeanut;
+	JCheckBox chkMackerel;
+	JCheckBox chkPork;
+	JCheckBox chkSo2;
+	JCheckBox chkBeef;
+	JCheckBox chkSoybean;
+	JCheckBox chkWheat;
+	JCheckBox chkShrimp;
+	JCheckBox chkTomato;
+	JCheckBox chkChicken;
+	JCheckBox chkShellfish;
+	JCheckBox chkCrab;
+	JCheckBox chkPeach;
+	JCheckBox chkWalnut;
+	JCheckBox chkSquid;
 	
 	// Construct
 	public DbActionMenu() {
@@ -35,7 +49,10 @@ public class DbActionMenu {
 	}
 	// 메뉴 등록
 	public DbActionMenu(String name, String price, String content, JCheckBox chkEggs, JCheckBox chkMilk,
-			JCheckBox chkBuckwheat, JCheckBox chkPeanut) {
+			JCheckBox chkBuckwheat, JCheckBox chkPeanut, JCheckBox chkMackerel, JCheckBox chkPork, JCheckBox chkSo2,
+			JCheckBox chkBeef, JCheckBox chkSoybean, JCheckBox chkWheat, JCheckBox chkShrimp, JCheckBox chkTomato,
+			JCheckBox chkChicken, JCheckBox chkShellfish, JCheckBox chkCrab, JCheckBox chkPeach, JCheckBox chkWalnut,
+			JCheckBox chkSquid) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -44,6 +61,20 @@ public class DbActionMenu {
 		this.chkMilk = chkMilk;
 		this.chkBuckwheat = chkBuckwheat;
 		this.chkPeanut = chkPeanut;
+		this.chkMackerel = chkMackerel;
+		this.chkPork = chkPork;
+		this.chkSo2 = chkSo2;
+		this.chkBeef = chkBeef;
+		this.chkSoybean = chkSoybean;
+		this.chkWheat = chkWheat;
+		this.chkShrimp = chkShrimp;
+		this.chkTomato = chkTomato;
+		this.chkChicken = chkChicken;
+		this.chkShellfish = chkShellfish;
+		this.chkCrab = chkCrab;
+		this.chkPeach = chkPeach;
+		this.chkWalnut = chkWalnut;
+		this.chkSquid = chkSquid;
 	}
 
 	// Method
@@ -61,7 +92,7 @@ public class DbActionMenu {
 			String query1 = " values (?, ?, ?, ?, ?)";
 			String allergyChk = "";
 			
-			if(chkEggs.isSelected() == true || chkMilk.isSelected() == true || chkBuckwheat.isSelected() == true || chkPeanut.isSelected() == true) {
+			if(chkEggs.isSelected() == true || chkMilk.isSelected() == true || chkBuckwheat.isSelected() == true || chkPeanut.isSelected() == true || chkSoybean.isSelected() == true || chkWheat.isSelected() == true || chkMackerel.isSelected() == true || chkCrab.isSelected() == true || chkShrimp.isSelected() == true || chkPork.isSelected() == true || chkPeach.isSelected() == true || chkTomato.isSelected() == true || chkSo2.isSelected() == true || chkWalnut.isSelected() == true || chkChicken.isSelected() == true || chkBeef.isSelected() == true || chkSquid.isSelected() == true || chkShellfish.isSelected() == true) {
 				allergyChk = "t";
 				// 알러지 있는 회원만 알러지 탭에 저장
 				allergyUpdate();
@@ -100,7 +131,7 @@ public class DbActionMenu {
 		
 		ArrayList<BeanMenu> beanList = dbAction.allergyCodeList();
 		
-		JCheckBox[] chk = {chkEggs, chkMilk, chkBuckwheat, chkPeanut};
+		JCheckBox[] chk = {chkEggs, chkMilk, chkBuckwheat, chkPeanut, chkSoybean, chkWheat, chkMackerel, chkCrab, chkShrimp, chkPork, chkPeach, chkTomato, chkSo2, chkWalnut, chkChicken, chkBeef, chkSquid, chkShellfish};
 		
 		for(int i=0; i<chk.length; i++) {
 			if(chk[i].isSelected() == true) {
