@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 
 import com.javalec.menu.BeanMenu;
 import com.javalec.menu.DbActionMenu;
-import com.javalec.restaurant.BeanRestrant;
+import com.javalec.restaurant_user.BeanRestaurant_User;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -30,7 +30,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JPasswordField;
 
-public class TestUser {
+public class User {
 
 	private JFrame frame;
 	private JTextField tfId;
@@ -69,7 +69,7 @@ public class TestUser {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TestUser window = new TestUser();
+					User window = new User();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -81,7 +81,7 @@ public class TestUser {
 	/**
 	 * Create the application.
 	 */
-	public TestUser() {
+	public User() {
 		initialize();
 	}
 

@@ -1,4 +1,4 @@
-package com.javalec.restaurant;
+package com.javalec.restaurant_user;
 
 import java.awt.EventQueue;
 
@@ -9,7 +9,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import com.javalec.review.TestReview;
+import com.javalec.review.Review;
 
 import java.awt.Font;
 import java.sql.Connection;
@@ -33,28 +33,26 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class SearchRestaurant {
+public class SearchRestaurant_User {
 
 	public JFrame frame;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_1_1;
 	private JLabel lblNewLabel_1_1_1;
-	private JLabel lblNewLabel_1_1_1_1;
 	private JComboBox cbNeighborhood;
 	private JComboBox cbPeople;
 	private JComboBox cbCategory;
-	private JComboBox cbStar;
 	private JTextField tfSearch;
 	private JButton btnSearch;
 	private JScrollPane scrollPane;
 	private JTable Inner_Table;
 	private JLabel lblNewLabel_1_2;
 	private JLabel lblCount;
+	private JButton btnMyPage;
 	
 	private final DefaultTableModel Outer_Table = new DefaultTableModel();
 	
-
 	/**
 	 * Launch the application.
 	 */
@@ -62,7 +60,7 @@ public class SearchRestaurant {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SearchRestaurant window = new SearchRestaurant();
+					SearchRestaurant_User window = new SearchRestaurant_User();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -74,7 +72,7 @@ public class SearchRestaurant {
 	/**
 	 * Create the application.
 	 */
-	public SearchRestaurant() {
+	public SearchRestaurant_User() {
 		initialize();
 	}
 
@@ -91,23 +89,21 @@ public class SearchRestaurant {
 			}
 		});
 		frame.setBounds(100, 100, 450, 508);
-//		100, 100, 450, 594
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(getLblNewLabel());
 		frame.getContentPane().add(getLblNewLabel_1());
 		frame.getContentPane().add(getLblNewLabel_1_1());
 		frame.getContentPane().add(getLblNewLabel_1_1_1());
-		frame.getContentPane().add(getLblNewLabel_1_1_1_1());
 		frame.getContentPane().add(getCbNeighborhood());
 		frame.getContentPane().add(getCbPeople());
 		frame.getContentPane().add(getCbCategory());
-		frame.getContentPane().add(getCbStar());
 		frame.getContentPane().add(getTfSearch());
 		frame.getContentPane().add(getBtnSearch());
 		frame.getContentPane().add(getScrollPane());
 		frame.getContentPane().add(getLblNewLabel_1_2());
 		frame.getContentPane().add(getLblCount());
+		frame.getContentPane().add(getBtnMyPage());
 	}
 
 	private JLabel getLblNewLabel() {
@@ -115,37 +111,30 @@ public class SearchRestaurant {
 			lblNewLabel = new JLabel("맛집 검색");
 			lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel.setBounds(188, 22, 74, 25);
+			lblNewLabel.setBounds(188, 35, 74, 25);
 		}
 		return lblNewLabel;
 	}
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel("동네 :");
-			lblNewLabel_1.setBounds(24, 69, 40, 16);
+			lblNewLabel_1.setBounds(24, 82, 40, 16);
 		}
 		return lblNewLabel_1;
 	}
 	private JLabel getLblNewLabel_1_1() {
 		if (lblNewLabel_1_1 == null) {
 			lblNewLabel_1_1 = new JLabel("사람 :");
-			lblNewLabel_1_1.setBounds(235, 69, 40, 16);
+			lblNewLabel_1_1.setBounds(235, 82, 40, 16);
 		}
 		return lblNewLabel_1_1;
 	}
 	private JLabel getLblNewLabel_1_1_1() {
 		if (lblNewLabel_1_1_1 == null) {
 			lblNewLabel_1_1_1 = new JLabel("음식 :");
-			lblNewLabel_1_1_1.setBounds(24, 101, 40, 16);
+			lblNewLabel_1_1_1.setBounds(24, 114, 40, 16);
 		}
 		return lblNewLabel_1_1_1;
-	}
-	private JLabel getLblNewLabel_1_1_1_1() {
-		if (lblNewLabel_1_1_1_1 == null) {
-			lblNewLabel_1_1_1_1 = new JLabel("별점:");
-			lblNewLabel_1_1_1_1.setBounds(235, 101, 40, 16);
-		}
-		return lblNewLabel_1_1_1_1;
 	}
 	private JComboBox getCbNeighborhood() {
 		if (cbNeighborhood == null) {
@@ -156,7 +145,7 @@ public class SearchRestaurant {
 				}
 			});
 			cbNeighborhood.setModel(new DefaultComboBoxModel(new String[] {"전체", "강남", "홍대", "명동", "이태원"}));
-			cbNeighborhood.setBounds(63, 64, 153, 27);
+			cbNeighborhood.setBounds(63, 77, 153, 27);
 		}
 		return cbNeighborhood;
 	}
@@ -169,7 +158,7 @@ public class SearchRestaurant {
 				}
 			});
 			cbPeople.setModel(new DefaultComboBoxModel(new String[] {"전체", "1인", "2인", "3인", "4인", "5인 이상"}));
-			cbPeople.setBounds(274, 64, 153, 27);
+			cbPeople.setBounds(274, 77, 153, 27);
 		}
 		return cbPeople;
 	}
@@ -181,24 +170,23 @@ public class SearchRestaurant {
 					searchCategory();
 				}
 			});
-			cbCategory.setModel(new DefaultComboBoxModel(new String[] {"전체", "한식", "일식"}));
-			cbCategory.setBounds(63, 97, 153, 27);
+			cbCategory.setModel(new DefaultComboBoxModel(new String[] {"전체", "한식", "중식", "일식", "양식", "분식"}));
+			cbCategory.setBounds(63, 110, 153, 27);
 		}
 		return cbCategory;
-	}
-	private JComboBox getCbStar() {
-		if (cbStar == null) {
-			cbStar = new JComboBox();
-			cbStar.setModel(new DefaultComboBoxModel(new String[] {"전체", "별", "별별", "별별별", "별별별별", "별별별별별"}));
-			cbStar.setBounds(274, 97, 153, 27);
-		}
-		return cbStar;
 	}
 	private JTextField getTfSearch() {
 		if (tfSearch == null) {
 			tfSearch = new JTextField();
-			tfSearch.setBounds(24, 129, 238, 26);
+			tfSearch.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					tfSearch.setText("");
+				}
+			});
+			tfSearch.setBounds(228, 110, 145, 26);
 			tfSearch.setColumns(10);
+			tfSearch.setText("이름을 검색하세요.");
 		}
 		return tfSearch;
 	}
@@ -211,14 +199,14 @@ public class SearchRestaurant {
 					searchAction();
 				}
 			});
-			btnSearch.setBounds(274, 129, 153, 29);
+			btnSearch.setBounds(375, 109, 52, 29);
 		}
 		return btnSearch;
 	}
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(24, 195, 403, 274);
+			scrollPane.setBounds(24, 170, 403, 295);
 			scrollPane.setViewportView(getInner_Table());
 		}
 		return scrollPane;
@@ -240,7 +228,7 @@ public class SearchRestaurant {
 	private JLabel getLblNewLabel_1_2() {
 		if (lblNewLabel_1_2 == null) {
 			lblNewLabel_1_2 = new JLabel("맛집 :");
-			lblNewLabel_1_2.setBounds(24, 167, 40, 16);
+			lblNewLabel_1_2.setBounds(24, 142, 40, 16);
 		}
 		return lblNewLabel_1_2;
 	}
@@ -251,6 +239,13 @@ public class SearchRestaurant {
 			lblCount.setBounds(343, 170, 84, 16);
 		}
 		return lblCount;
+	}
+	private JButton getBtnMyPage() {
+		if (btnMyPage == null) {
+			btnMyPage = new JButton("MyPage");
+			btnMyPage.setBounds(6, 6, 74, 29);
+		}
+		return btnMyPage;
 	}
 	
 	// 화면 restaurant Table 초기화
@@ -296,8 +291,8 @@ public class SearchRestaurant {
 	// restaurant Table값 불러오기
 	private void restaurantTable() {
 		
-		DbActionRestrant dbActionRestrant = new DbActionRestrant();
-        ArrayList<BeanRestrant> beanList = dbActionRestrant.restaurantTable();
+		DbActionRestaurant_User dbActionRestrant = new DbActionRestaurant_User();
+        ArrayList<BeanRestaurant_User> beanList = dbActionRestrant.restaurantTable();
         
         for(int i=0; i<beanList.size(); i++) {
         	String temp = Integer.toString(beanList.get(i).getNum());
@@ -339,8 +334,8 @@ public class SearchRestaurant {
 	}
 	private void searchNeighborhoodAction(String columnName, String a, String b, String c) {
 		
-		DbActionRestrant dbActionRestrant = new DbActionRestrant(columnName, a, b, c);
-		ArrayList<BeanRestrant> beanList = dbActionRestrant.searchNeighborhoodAction();
+		DbActionRestaurant_User dbActionRestrant = new DbActionRestaurant_User(columnName, a, b, c);
+		ArrayList<BeanRestaurant_User> beanList = dbActionRestrant.searchNeighborhoodAction();
 		
 		for(int i=0; i<beanList.size(); i++) {
         	String temp = Integer.toString(beanList.get(i).getNum());
@@ -384,8 +379,8 @@ public class SearchRestaurant {
 	}
 	private void searchPeopleAction(String a, String columnName, String b, String c) {
 		
-		DbActionRestrant dbActionRestrant = new DbActionRestrant(a, columnName, b, c);
-		ArrayList<BeanRestrant> beanList = dbActionRestrant.searchPeopleAction();
+		DbActionRestaurant_User dbActionRestrant = new DbActionRestaurant_User(a, columnName, b, c);
+		ArrayList<BeanRestaurant_User> beanList = dbActionRestrant.searchPeopleAction();
 		
 		for(int i=0; i<beanList.size(); i++) {
         	String temp = Integer.toString(beanList.get(i).getNum());
@@ -407,10 +402,19 @@ public class SearchRestaurant {
 				category = "";
 				break;
 			case 1:
-				category = "and rt.category='일식' ";
+				category = "and rt.category='한식' ";
 				break;
 			case 2:
-				category = "and rt.category='한식' ";
+				category = "and rt.category='중식' ";
+				break;
+			case 3:
+				category = "and rt.category='일식' ";
+				break;
+			case 4:
+				category = "and rt.category='양식' ";
+				break;
+			case 5:
+				category = "and rt.category='분식' ";
 				break;
 			default:
 				break;
@@ -420,8 +424,8 @@ public class SearchRestaurant {
 	}
 	private void searchCategoryAction(String a, String b, String columnName, String c) {
 		
-		DbActionRestrant dbActionRestrant = new DbActionRestrant(a, b, columnName, c);
-		ArrayList<BeanRestrant> beanList = dbActionRestrant.searchCategoryAction();
+		DbActionRestaurant_User dbActionRestrant = new DbActionRestaurant_User(a, b, columnName, c);
+		ArrayList<BeanRestaurant_User> beanList = dbActionRestrant.searchCategoryAction();
 		
 		for(int i=0; i<beanList.size(); i++) {
         	String temp = Integer.toString(beanList.get(i).getNum());
@@ -430,50 +434,14 @@ public class SearchRestaurant {
         }
         lblCount.setText(Integer.toString(beanList.size()) + "개");
 	}
-	
-	// 별점 필터 - 시간 조지게 걸릴거같아서 일단 패스
-//	private void searchStar() {
-//		int i = cbStar.getSelectedIndex();
-//		String star = "";
-//		String a = "";
-//		String b = "";
-//		String c = "";
-//		switch (i) {
-//			case 0:
-//				star = "";
-//				break;
-//			case 1:
-//				star = "and sum(length(rw.star)/3)/count(rw.star)>0 and sum(length(rw.star)/3)/count(rw.star)<2 ";
-//				break;
-//			case 2:
-//				star = "and sum(length(rw.star)/3)/count(rw.star)>=2 and sum(length(rw.star)/3)/count(rw.star)<3 ";
-//				break;
-//			default:
-//				break;
-//		}
-//		restaurantTableInit();
-//		searchStarAction(a, b, c, star);
-//	}
-//	private void searchStarAction(String a, String b, String c, String columnName) {
-//		
-//		DbActionRestrant dbActionRestrant = new DbActionRestrant(a, b, c, columnName);
-//		ArrayList<BeanRestrant> beanList = dbActionRestrant.searchCategoryAction();
-//		
-//		for(int i=0; i<beanList.size(); i++) {
-//        	String temp = Integer.toString(beanList.get(i).getNum());
-//        	String[] qTxt = {temp, beanList.get(i).getName(), beanList.get(i).getStar(), beanList.get(i).getLocation()};
-//        	Outer_Table.addRow(qTxt);
-//        }
-//        lblCount.setText(Integer.toString(beanList.size()) + "개");
-//	}
 	
 	// 일반 검색 - 이름
 	private void searchAction() {
 		
 		String name = tfSearch.getText().trim();
 		
-		DbActionRestrant dbActionRestrant = new DbActionRestrant(name);
-		ArrayList<BeanRestrant> beanList = dbActionRestrant.searchAction();
+		DbActionRestaurant_User dbActionRestrant = new DbActionRestaurant_User(name);
+		ArrayList<BeanRestaurant_User> beanList = dbActionRestrant.searchAction();
 		
 		for(int i=0; i<beanList.size(); i++) {
         	String temp = Integer.toString(beanList.get(i).getNum());
@@ -482,11 +450,6 @@ public class SearchRestaurant {
         }
         lblCount.setText(Integer.toString(beanList.size()) + "개");
 	}
-	
-	
-	
-	
-	
 	
 	// restaurant 테이블 클릭 시 식당 상세 정보 보여주기
 	private void tableClick() {
@@ -495,8 +458,7 @@ public class SearchRestaurant {
 		String wkNum = (String) Inner_Table.getValueAt(i, 0);
 		
 		frame.setVisible(false);
-		TestRestaurant testRestaurant = new TestRestaurant(wkNum);
+		ViewRestaurant_User testRestaurant = new ViewRestaurant_User(wkNum);
 		testRestaurant.frame.setVisible(true);
 	}
-	
 }

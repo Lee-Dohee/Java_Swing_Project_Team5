@@ -1,4 +1,4 @@
-package com.javalec.restaurant;
+package com.javalec.restaurant_user;
 
 import java.awt.EventQueue;
 import java.sql.Connection;
@@ -16,7 +16,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import com.javalec.review.TestReview;
+import com.javalec.review.Review;
 
 import javax.swing.SwingConstants;
 import java.awt.event.WindowAdapter;
@@ -28,7 +28,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class TestRestaurant {
+public class ViewRestaurant_User {
 
 	public JFrame frame;
 	private JLabel lblNewLabel_1;
@@ -65,7 +65,7 @@ public class TestRestaurant {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TestRestaurant window = new TestRestaurant();
+					ViewRestaurant_User window = new ViewRestaurant_User();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -77,10 +77,10 @@ public class TestRestaurant {
 	/**
 	 * Create the application.
 	 */
-	public TestRestaurant() {
+	public ViewRestaurant_User() {
 		initialize();
 	}
-	public TestRestaurant(String wkNum) {
+	public ViewRestaurant_User(String wkNum) {
 		this.wkNum = wkNum;
 		initialize();
 	}
@@ -254,7 +254,7 @@ public class TestRestaurant {
 			btnReview.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					frame.setVisible(false);
-					TestReview testReview = new TestReview(wkNum);
+					Review testReview = new Review(wkNum);
 					testReview.frame.setVisible(true);
 				}
 			});
@@ -268,7 +268,7 @@ public class TestRestaurant {
 			btnBack.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					frame.setVisible(false);
-					SearchRestaurant searchRestaurant = new SearchRestaurant();
+					SearchRestaurant_User searchRestaurant = new SearchRestaurant_User();
 					searchRestaurant.frame.setVisible(true);
 				}
 			});
@@ -281,10 +281,10 @@ public class TestRestaurant {
 	// 식당 정보 보여주기
 	private void restaurantInfo() {
 		
-		DbActionRestrant dbActionRestrant = new DbActionRestrant();
+		DbActionRestaurant_User dbActionRestrant = new DbActionRestaurant_User();
 		
 		// restaurant 기본 정보 불러오기
-		BeanRestrant beanRestrantInfo = dbActionRestrant.restaurantInfo(wkNum);
+		BeanRestaurant_User beanRestrantInfo = dbActionRestrant.restaurantInfo(wkNum);
 		lblName.setText(beanRestrantInfo.getName());
 		lblLocation.setText(beanRestrantInfo.getLocation());
 		lblTelno.setText(beanRestrantInfo.getTelno());
@@ -367,9 +367,9 @@ public class TestRestaurant {
 	private void allergyMenuTable() {
 		
 		
-		DbActionRestrant dbActionRestrant = new DbActionRestrant();
+		DbActionRestaurant_User dbActionRestrant = new DbActionRestaurant_User();
         // selectList를 어Bean으로 저장
-        ArrayList<BeanRestrant> beanList = dbActionRestrant.allergyMenuTable(wkNum);
+        ArrayList<BeanRestaurant_User> beanList = dbActionRestrant.allergyMenuTable(wkNum);
         
         for(int i=0; i<beanList.size(); i++) {
         	String[] qTxt = {beanList.get(i).getName(), beanList.get(i).getPrice(), beanList.get(i).getContent(), beanList.get(i).getAllergy()};
@@ -383,12 +383,12 @@ public class TestRestaurant {
 	// Menu 테이블 클릭 시 알레르기 항목 보여주기
 	private void tableClick() {	
 		
-		DbActionRestrant dbAction = new DbActionRestrant();
+		DbActionRestaurant_User dbAction = new DbActionRestaurant_User();
 		
 		int i = Inner_Table_Menu.getSelectedRow();					// i = 선택한 inner테이블이 몇번째 줄인지
 		String wkName = (String) Inner_Table_Menu.getValueAt(i, 0);	// wkName = i번째 inner테이블의 0번째 값 = i번째 메뉴 이름
 		
-		ArrayList<BeanRestrant> beanList = dbAction.AllergyList(wkName);
+		ArrayList<BeanRestaurant_User> beanList = dbAction.AllergyList(wkName);
 		ArrayList<String> allergyName = new ArrayList<String>();
 		
 		for(int j=0; j<beanList.size(); j++) {
@@ -400,7 +400,6 @@ public class TestRestaurant {
 		}else {
 			JOptionPane.showMessageDialog(null, "회원님의 " + wkName + " 알레르기 유발 재료는 " + allergyName + "입니다.");			
 		}
-			
 	}
 	
 	// 화면 Table 초기화
@@ -518,16 +517,15 @@ public class TestRestaurant {
 	// Review Table값 불러오기
 	private void reviewTable() {
 		
-		DbActionRestrant dbActionRestrant = new DbActionRestrant();
-        // selectList를 어Bean으로 저장
-        ArrayList<BeanRestrant> beanList = dbActionRestrant.reviewTable(wkNum);
+		DbActionRestaurant_User dbActionRestrant = new DbActionRestaurant_User();
+        
+		ArrayList<BeanRestaurant_User> beanList = dbActionRestrant.reviewTable(wkNum);
         
         for(int i=0; i<beanList.size(); i++) {
         	String[] qTxt = {beanList.get(i).getDate(), beanList.get(i).getU_id(), beanList.get(i).getStar(), beanList.get(i).getMenu(), beanList.get(i).getContent()};
         	// 만든 배열을 Outer_Table에 추가
         	Outer_Table_Review.addRow(qTxt);
         }
-
         lblCountR.setText(Integer.toString(beanList.size()) + "개");
 	}
 }

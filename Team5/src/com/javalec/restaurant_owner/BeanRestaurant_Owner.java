@@ -1,6 +1,6 @@
-package com.javalec.restaurant;
+package com.javalec.restaurant_owner;
 
-public class BeanRestrant {
+public class BeanRestaurant_Owner {
 	
 	// Field
 	String name;
@@ -14,57 +14,46 @@ public class BeanRestrant {
 	String location;
 	String telno;
 	int num;
-
-
+	int code;
+	
+	
 	// Construct
-	public BeanRestrant() {
-		// TODO Auto-generated constructor stub
-	}
-	public BeanRestrant(String name) {
-		super();
-		this.name = name;
-	}	
-	public BeanRestrant(String name, String price, String content, String allergy) {
-		super();
-		this.name = name;
-		this.price = price;
-		this.content = content;
-		this.allergy = allergy;
-	}	
-	public BeanRestrant(String date, String u_id, String star, String menu, String content) {
-		super();
-		this.content = content;
-		this.date = date;
-		this.u_id = u_id;
-		this.star = star;
-		this.menu = menu;
-	}
-	// 레스토랑 info 보여주기
-	public BeanRestrant(String name, String location, String telno) {
-		super();
-		this.name = name;
-		this.location = location;
-		this.telno = telno;
-	}
-	// 레스토랑 table 불러오기
-	public BeanRestrant(String name, String location) {
-		super();
-		this.name = name;
-		this.location = location;
-	}
-	// 레스토랑 클릭하기
-	public BeanRestrant(int num, String name, String star, String location) {
+	// 식당 table 불러오기
+	public BeanRestaurant_Owner(int num, String name, String star, String location) {
 		super();
 		this.num = num;
 		this.name = name;
 		this.star = star;
 		this.location = location;
 	}
+	// restaurant 기본 정보 불러오기
+	public BeanRestaurant_Owner(String name, String location, String telno) {
+		super();
+		this.name = name;
+		this.location = location;
+		this.telno = telno;
+	}
+	// 메뉴 테이블 불러오기
+	public BeanRestaurant_Owner(int code, String name, String price, String content, String allergy) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.price = price;
+		this.content = content;
+		this.allergy = allergy;
+	}
+	// 리뷰 테이블 불러오기
+	public BeanRestaurant_Owner(String date, String u_id, String star, String menu, String content) {
+		super();
+		this.date = date;
+		this.u_id = u_id;
+		this.star = star;
+		this.menu = menu;
+		this.content = content;
+	}
 	
 	
-	
-	
-	// Method
+	// Mehtod
 	public String getName() {
 		return name;
 	}
@@ -131,5 +120,11 @@ public class BeanRestrant {
 	public void setNum(int num) {
 		this.num = num;
 	}
-
+	public int getCode() {
+		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
+	}
+	
 }

@@ -20,9 +20,11 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-public class TestMenu {
+import com.javalec.restaurant_owner.ViewRestaurant_Owner;
 
-	private JFrame frame;
+public class Menu {
+
+	public JFrame frame;
 	private JCheckBox chkEggs;
 	private JCheckBox chkMilk;
 	private JCheckBox chkBuckwheat;
@@ -48,6 +50,9 @@ public class TestMenu {
 	private JCheckBox chkWalnut;
 	private JCheckBox chkSquid;
 
+	String wkNum;
+	private JButton btnCancle;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -55,7 +60,7 @@ public class TestMenu {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TestMenu window = new TestMenu();
+					Menu window = new Menu();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -67,7 +72,11 @@ public class TestMenu {
 	/**
 	 * Create the application.
 	 */
-	public TestMenu() {
+	public Menu() {
+		initialize();
+	}
+	public Menu(String wkNum) {
+		this.wkNum = wkNum;
 		initialize();
 	}
 
@@ -104,6 +113,7 @@ public class TestMenu {
 		frame.getContentPane().add(getChkPeach());
 		frame.getContentPane().add(getChkWalnut());
 		frame.getContentPane().add(getChkSquid());
+		frame.getContentPane().add(getBtnCancle());
 	}
 
 	private JCheckBox getChkEggs() {
@@ -280,6 +290,9 @@ public class TestMenu {
 					int i_chk = insertFieldCheck();
 					if(i_chk == 0){
 						register();
+						frame.setVisible(false);
+						ViewRestaurant_Owner viewRestaurant = new ViewRestaurant_Owner(wkNum);
+						viewRestaurant.frame.setVisible(true);
 					}else {
 						JOptionPane.showMessageDialog(null, "메뉴 항목을 모두 입력하세요!",
 								"메뉴 입력", 
@@ -291,6 +304,20 @@ public class TestMenu {
 		}
 		return btnOK;
 	}
+	private JButton getBtnCancle() {
+		if (btnCancle == null) {
+			btnCancle = new JButton("취소");
+			btnCancle.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					frame.setVisible(false);
+					ViewRestaurant_Owner testRestaurant = new ViewRestaurant_Owner(wkNum);
+					testRestaurant.frame.setVisible(true);
+				}
+			});
+			btnCancle.setBounds(103, 408, 117, 29);
+		}
+		return btnCancle;
+	}
 	
 	
 	// ok버튼 누르면 메뉴 등록
@@ -301,7 +328,7 @@ public class TestMenu {
 		String content = tfContent.getText().trim();
 		
 		DbActionMenu dbActionMenu = new DbActionMenu(name, price, content, chkEggs, chkMilk, chkBuckwheat, chkPeanut, chkSoybean, chkWheat, chkMackerel, chkCrab, chkShrimp, chkPork, chkPeach, chkTomato, chkSo2, chkWalnut, chkChicken, chkBeef, chkSquid, chkShellfish);
-		boolean msg = dbActionMenu.registerMenu();
+		boolean msg = dbActionMenu.registerMenu(wkNum);
 		
 		if(msg == true) {
 			JOptionPane.showMessageDialog(null, tfName.getText() + " 메뉴 등록이 완료되었습니다!",
@@ -332,4 +359,5 @@ public class TestMenu {
 		return i;
 	}
 
+	
 }

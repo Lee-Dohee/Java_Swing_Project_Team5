@@ -34,8 +34,6 @@ public class DbActionReview {
 		this.content = content;
 	}
 
-
-
 	// Method
 	public boolean registerAction(String star) {
 		

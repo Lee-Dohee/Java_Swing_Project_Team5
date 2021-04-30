@@ -80,7 +80,7 @@ public class DbActionMenu {
 	// Method
 	
 	// 메뉴 등록
-	public boolean registerMenu() {
+	public boolean registerMenu(String wkNum) {
 		PreparedStatement ps = null;
 		
 		try {
@@ -95,14 +95,14 @@ public class DbActionMenu {
 			if(chkEggs.isSelected() == true || chkMilk.isSelected() == true || chkBuckwheat.isSelected() == true || chkPeanut.isSelected() == true || chkSoybean.isSelected() == true || chkWheat.isSelected() == true || chkMackerel.isSelected() == true || chkCrab.isSelected() == true || chkShrimp.isSelected() == true || chkPork.isSelected() == true || chkPeach.isSelected() == true || chkTomato.isSelected() == true || chkSo2.isSelected() == true || chkWalnut.isSelected() == true || chkChicken.isSelected() == true || chkBeef.isSelected() == true || chkSquid.isSelected() == true || chkShellfish.isSelected() == true) {
 				allergyChk = "t";
 				// 알러지 있는 회원만 알러지 탭에 저장
-				allergyUpdate();
+				allergyUpdate(wkNum);
 			}else {
 				allergyChk = "f";
 			}
 			
 			ps = conn_mysql.prepareStatement(query + query1);
-			// id 값 사용자 id로 지정
-			ps.setString(1, "1");
+			
+			ps.setString(1, wkNum);
 			ps.setString(2, name);
 			ps.setString(3, price);
 			ps.setString(4, content);
@@ -122,7 +122,7 @@ public class DbActionMenu {
 	}
 	
 	// 알레르기 체크하면 menuchk에 값 업데이트
-	private void allergyUpdate() {
+	private void allergyUpdate(String wkNum) {
 		
 		PreparedStatement ps = null;
 		
@@ -145,7 +145,7 @@ public class DbActionMenu {
 					
 					ps = conn_mysql.prepareStatement(query + query1);
 					
-					ps.setString(1, "1");	// r_code를 해당 식당의 코드로
+					ps.setString(1, wkNum);
 					ps.setString(2, name);
 					ps.setString(3, beanList.get(i).getCode());
 					ps.executeUpdate();
@@ -210,6 +210,54 @@ public class DbActionMenu {
 			e.printStackTrace();
 			// 알레르기 테스트
 //			JOptionPane.showMessageDialog(null, "m_code 실패!");
+		}
+	}
+	
+	// 메뉴 삭제
+	public boolean deleteMenuAction(String wkNum) {
+		
+		PreparedStatement ps = null;
+		
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+			
+			String query = "delete from menu where code=?";
+			
+			ps = conn_mysql.prepareStatement(query);
+			
+			ps.setString(1, wkNum);
+			ps.executeUpdate();
+			
+			deleteMenuChkAction(wkNum);
+			
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	// 메뉴Chk 삭제
+	private void deleteMenuChkAction(String wkNum) {
+		
+		PreparedStatement ps = null;
+		
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+			
+			String query = "delete from menuchk where m_code=?";
+			
+			ps = conn_mysql.prepareStatement(query);
+			
+			ps.setString(1, wkNum);
+			ps.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

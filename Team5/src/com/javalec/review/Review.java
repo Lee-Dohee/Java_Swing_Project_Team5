@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import com.javalec.restaurant.TestRestaurant;
+import com.javalec.restaurant_user.ViewRestaurant_User;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -24,7 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
-public class TestReview {
+public class Review {
 
 	public JFrame frame;
 	private JComboBox cbStar;
@@ -34,6 +34,7 @@ public class TestReview {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JTextField tfMenu;
+	private JButton btnCancel;
 	
 	String wkNum;
 
@@ -45,7 +46,7 @@ public class TestReview {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TestReview window = new TestReview();
+					Review window = new Review();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,10 +58,10 @@ public class TestReview {
 	/**
 	 * Create the application.
 	 */
-	public TestReview() {
+	public Review() {
 		initialize();
 	}
-	public TestReview(String wkNum) {
+	public Review(String wkNum) {
 		this.wkNum = wkNum;
 		initialize();
 	}
@@ -81,6 +82,7 @@ public class TestReview {
 		frame.getContentPane().add(getLblNewLabel_1());
 		frame.getContentPane().add(getLblNewLabel_2());
 		frame.getContentPane().add(getTfMenu());
+		frame.getContentPane().add(getBtnCancel());
 	}
 	private JComboBox getCbStar() {
 		if (cbStar == null) {
@@ -106,7 +108,7 @@ public class TestReview {
 					if(i_chk == 0){
 						register();
 						frame.setVisible(false);
-						TestRestaurant testRestaurant = new TestRestaurant();
+						ViewRestaurant_User testRestaurant = new ViewRestaurant_User(wkNum);
 						testRestaurant.frame.setVisible(true);
 					}else {
 						JOptionPane.showMessageDialog(null, "리뷰항목을 모두 입력하세요!",
@@ -148,6 +150,20 @@ public class TestReview {
 		}
 		return tfMenu;
 	}
+	private JButton getBtnCancel() {
+		if (btnCancel == null) {
+			btnCancel = new JButton("취소");
+			btnCancel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					frame.setVisible(false);
+					ViewRestaurant_User testRestaurant = new ViewRestaurant_User(wkNum);
+					testRestaurant.frame.setVisible(true);
+				}
+			});
+			btnCancel.setBounds(159, 354, 117, 29);
+		}
+		return btnCancel;
+	}
 	
 	// 콤보박스 선택한 것 등록할 정보 판단 후 등록
 	private void register() {
@@ -183,7 +199,7 @@ public class TestReview {
 	private void registerAction(String star) {
 		
 		String u_id = "Carry";	// 해당 유저로 설정
-		String r_code = wkNum;	// 선택한 식당 코드로 설정
+		String r_code = wkNum;
 		String menu = tfMenu.getText().trim();
 		String content = taContent.getText().trim();
 		
@@ -214,6 +230,4 @@ public class TestReview {
 		}	
 		return i;
 	}
-	
-	
 }
